@@ -11,11 +11,26 @@ Smoke Test Automation Framework for an E-Commerce platform using Playwright and 
 ## 📁 Project Structure
 
 E-Commerce-Smoke-Yara-Romero/
-│── pages/
-│── tests/
-│── test-data/
+│── fixtures/                  # Custom Playwright fixtures
+│   └── baseTest.ts
+│── pages/                     # Page Object Model classes
+│   ├── LoginPage.ts
+│   ├── InventoryPage.ts
+│   ├── CartPage.ts
+│   ├── CheckoutPage.ts
+│   └── CheckoutOverviewPage.ts
+│── test-data/                 # Test data in JSON format
+│   ├── credentials.json
+│   └── checkoutData.json
+│── tests/                     # Test specifications
+│   ├── login.spec.ts
+│   ├── cart.spec.ts
+│   └── checkout.spec.ts
+│── utils/                     # Reusable utilities
+│   └── auth.ts
 │── playwright.config.ts
 │── package.json
+│── tsconfig.json
 │── README.md
 
 ## 🌐 Test Environment
@@ -68,9 +83,10 @@ playwright-report/
 test-results/
 
 ## 🧪 Smoke Test Coverage
-- ✅ Login
-- ✅ Add Product to Cart
-- ✅ Complete Checkout
+Test Case	Description	Status
+Login	Verify successful login with valid credentials	✅
+Add to Cart	Verify a product can be added to the cart	✅
+Checkout	Verify a user can complete a purchase	✅
 
 ## 📂 Test Data
 Located in the `test-data` folder:
