@@ -68,8 +68,14 @@ playwright-report/
 test-results/
 
 ## 🧪 Smoke Test Coverage
-✅ Login
-✅ Add Product to Cart
+- ✅ Login
+- ✅ Add Product to Cart
+- ✅ Complete Checkout
+
+## 📂 Test Data
+Located in the `test-data` folder:
+- `credentials.json`
+- `checkoutData.json`
 
 ## 🔄 CI/CD
 GitHub Actions will run automated tests on every push and pull request.
