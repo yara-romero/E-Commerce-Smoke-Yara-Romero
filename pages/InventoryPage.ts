@@ -20,6 +20,6 @@ export class InventoryPage {
   }
 
   async openCart() {
-    await this.cartIcon.click();
+    await this.page.locator('.shopping_cart_link').click();
   }
 }
