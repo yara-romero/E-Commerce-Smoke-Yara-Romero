@@ -1,21 +1,19 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+import { InventoryPage } from '../pages/InventoryPage';
+import credentials from '../test-data/credentials.json';
 
 test.describe('E-Commerce Smoke Suite - Login', () => {
-
   test('Verify user can successfully login with valid credentials', async ({ page }) => {
-    // Navigate to the login page
-    await page.goto('/');
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
 
-    // Enter valid credentials using modern locators
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
+    await loginPage.navigate();
+    await loginPage.login(
+      credentials.standardUser.username,
+      credentials.standardUser.password
+    );
 
-    // Click on the login button
-    await page.getByRole('button', { name: 'Login' }).click();
-
-    // Verify successful login by asserting the inventory page is displayed
-    await expect(page).toHaveURL(/inventory/);
-    await expect(page.getByText('Products')).toBeVisible();
+    await inventoryPage.validateLoginSuccess();
   });
-
 });
