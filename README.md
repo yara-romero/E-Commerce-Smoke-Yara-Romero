@@ -9,29 +9,36 @@ Smoke Test Automation Framework for an E-Commerce platform using Playwright and 
 - GitHub Actions
 
 ## 📁 Project Structure
-
+```plaintext
 E-Commerce-Smoke-Yara-Romero/
-│── fixtures/                  # Custom Playwright fixtures
+│
+├── fixtures/                 # Custom Playwright fixtures
 │   └── baseTest.ts
-│── pages/                     # Page Object Model classes
+│
+├── pages/                    # Page Object Model classes
 │   ├── LoginPage.ts
 │   ├── InventoryPage.ts
 │   ├── CartPage.ts
 │   ├── CheckoutPage.ts
 │   └── CheckoutOverviewPage.ts
-│── test-data/                 # Test data in JSON format
+│
+├── test-data/                # Test data in JSON format
 │   ├── credentials.json
 │   └── checkoutData.json
-│── tests/                     # Test specifications
+│
+├── tests/                    # Test specifications
 │   ├── login.spec.ts
 │   ├── cart.spec.ts
 │   └── checkout.spec.ts
-│── utils/                     # Reusable utilities
+│
+├── utils/                    # Reusable utilities
 │   └── auth.ts
-│── playwright.config.ts
-│── package.json
-│── tsconfig.json
-│── README.md
+│
+├── playwright.config.ts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
 
 ## 🌐 Test Environment
 
