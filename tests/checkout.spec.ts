@@ -1,49 +1,36 @@
-import { test } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { test, expect } from '../fixtures/baseTest';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
-import credentials from '../test-data/credentials.json';
 import checkoutData from '../test-data/checkoutData.json';
+import * as allure from 'allure-js-commons';
 
-test.describe('E-Commerce Smoke Suite - Checkout', () => {
-  test('@smoke Verify user can successfully complete a purchase', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
-    const checkoutPage = new CheckoutPage(page);
-    const checkoutOverviewPage = new CheckoutOverviewPage(page);
+test('Verify user can successfully complete a purchase', async ({ authenticatedPage }) => {
+  await allure.feature('Checkout');
+  await allure.story('Complete Purchase');
+  await allure.severity('critical');
+  await allure.tag('smoke');
 
-    // Login
-    await loginPage.navigate();
-    await loginPage.login(
-      credentials.standardUser.username,
-      credentials.standardUser.password
-    );
+  const inventoryPage = new InventoryPage(authenticatedPage);
+  const cartPage = new CartPage(authenticatedPage);
+  const checkoutPage = new CheckoutPage(authenticatedPage);
+  const overviewPage = new CheckoutOverviewPage(authenticatedPage);
 
-    // Validate login
-    await inventoryPage.validateLoginSuccess();
+  await inventoryPage.addBackpackToCart();
+  await inventoryPage.openCart();
 
-    // Add product to cart
-    await inventoryPage.addBackpackToCart();
-    await inventoryPage.openCart();
+  await cartPage.validateCartPage();
+  await cartPage.validateProductInCart();
+  await cartPage.proceedToCheckout();
 
-    // Validate cart and proceed
-    await cartPage.validateCartPage();
-    await cartPage.validateProductInCart();
-    await cartPage.proceedToCheckout();
+  await checkoutPage.fillCheckoutInformation(
+    checkoutData.customer.firstName,
+    checkoutData.customer.lastName,
+    checkoutData.customer.postalCode
+  );
 
-    // Fill checkout information
-    await checkoutPage.fillCheckoutInformation(
-      checkoutData.customer.firstName,
-      checkoutData.customer.lastName,
-      checkoutData.customer.postalCode
-    );
-
-    // Complete purchase
-    await checkoutOverviewPage.validateOverviewPage();
-    await checkoutOverviewPage.finishCheckout();
-    await checkoutOverviewPage.validateOrderConfirmation();
-  });
+  await overviewPage.validateOverviewPage();
+  await overviewPage.finishCheckout();
+  await overviewPage.validateOrderConfirmation();
 });

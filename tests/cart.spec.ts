@@ -1,33 +1,20 @@
-import { test } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { test, expect } from '../fixtures/baseTest';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
-import credentials from '../test-data/credentials.json';
+import * as allure from 'allure-js-commons';
 
-test.describe('E-Commerce Smoke Suite - Cart', () => {
-  test('Verify user can add a product to the cart', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
+test('Verify user can add a product to the cart', async ({ authenticatedPage }) => {
+  await allure.feature('Cart');
+  await allure.story('Add Product');
+  await allure.severity('critical');
+  await allure.tag('smoke');
 
-    // Login
-    await loginPage.navigate();
-    await loginPage.login(
-      credentials.standardUser.username,
-      credentials.standardUser.password
-    );
+  const inventoryPage = new InventoryPage(authenticatedPage);
+  const cartPage = new CartPage(authenticatedPage);
 
-    // Validate successful login
-    await inventoryPage.validateLoginSuccess();
+  await inventoryPage.addBackpackToCart();
+  await inventoryPage.openCart();
 
-    // Add product to cart
-    await inventoryPage.addBackpackToCart();
-
-    // Open cart
-    await inventoryPage.openCart();
-
-    // Validate cart page and product
-    await cartPage.validateCartPage();
-    await cartPage.validateProductInCart();
-  });
+  await cartPage.validateCartPage();
+  await cartPage.validateProductInCart();
 });
