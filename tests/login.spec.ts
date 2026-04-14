@@ -4,7 +4,7 @@ import { InventoryPage } from '../pages/InventoryPage';
 import credentials from '../test-data/credentials.json';
 import * as allure from 'allure-js-commons';
 
-test('Verify user can successfully login with valid credentials', async ({ page }) => {
+test('@smoke Verify user can successfully login with valid credentials', async ({ page }) => {
   await allure.feature('Authentication');
   await allure.story('Login');
   await allure.severity('critical');

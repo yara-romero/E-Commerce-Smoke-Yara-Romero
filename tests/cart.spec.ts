@@ -3,7 +3,7 @@ import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
 import * as allure from 'allure-js-commons';
 
-test('Verify user can add a product to the cart', async ({ authenticatedPage }) => {
+test('@smoke Verify user can add a product to the cart', async ({ authenticatedPage }) => {
   await allure.feature('Cart');
   await allure.story('Add Product');
   await allure.severity('critical');

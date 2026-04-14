@@ -6,7 +6,7 @@ import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import checkoutData from '../test-data/checkoutData.json';
 import * as allure from 'allure-js-commons';
 
-test('Verify user can successfully complete a purchase', async ({ authenticatedPage }) => {
+test('@smoke Verify user can complete a purchase', async ({ authenticatedPage }) => {
   await allure.feature('Checkout');
   await allure.story('Complete Purchase');
   await allure.severity('critical');
